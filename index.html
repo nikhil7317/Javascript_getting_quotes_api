@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Quotes From API</title>
+</head>
+<body>
+    <div id="quotes"></div>
+    <div id="author"></div>
+    <button id="buttonClick">new quotes</button>
+
+<script>
+    let realData =''
+    const quotes = document.getElementById('quotes')
+    const author = document.getElementById('author')
+    const buttonClick = document.getElementById('buttonClick')
+    const getNewQuotes =()=>{
+        let randomNum = Math.floor(Math.random()*10)
+        quotes.innerText= `${realData[randomNum].text}`
+        author.innerText= `${realData[randomNum].author}`
+       
+    }
+    const getQuotes = async ()=>{
+        const api = "https://type.fit/api/quotes"
+        try{
+            let data = await fetch(api)
+            realData = await data.json()
+            getNewQuotes()
+            
+        }catch(error){
+
+        }
+    }
+    buttonClick.addEventListener('click',getNewQuotes)
+    getQuotes()
+    
+</script>
+
+</body>
+</html>
